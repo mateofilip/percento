@@ -1,0 +1,20 @@
+---
+import PercentageCalculator from '../components/PercentageCalculator.jsx';
+import '../styles.css'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Percentage Calculator</title>
+	</head>
+	<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+		<main>
+			<PercentageCalculator client:load />
+		</main>
+	</body>
+</html>

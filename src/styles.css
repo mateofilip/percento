@@ -1,0 +1,17 @@
+@font-face {
+  font-family: TeX;
+  src: url(../public/texgyreheros-regular.otf) format(opentype);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: TeX;
+  src: url(../public/texgyreheros-bold.otf) format(opentype);
+  font-weight: bold;
+  font-style: normal;
+}
+
+html {
+  font-family: TeX, "Times New Roman", Times, serif;
+}
