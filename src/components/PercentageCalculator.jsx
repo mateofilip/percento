@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "./ui/button";
 import {
@@ -34,6 +34,31 @@ const AnswerDisplay = ({ result, placeholderValue = "0" }) => {
       ? output.value
       : placeholderValue;
 
+  const [isBumping, setIsBumping] = useState(false);
+  const previousValueRef = useRef(value);
+  const bumpTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    if (isPlaceholder || hasError) {
+      previousValueRef.current = value;
+      return undefined;
+    }
+
+    if (previousValueRef.current !== value) {
+      setIsBumping(true);
+      if (bumpTimeoutRef.current) clearTimeout(bumpTimeoutRef.current);
+      bumpTimeoutRef.current = setTimeout(() => {
+        setIsBumping(false);
+      }, 180);
+    }
+
+    previousValueRef.current = value;
+
+    return () => {
+      if (bumpTimeoutRef.current) clearTimeout(bumpTimeoutRef.current);
+    };
+  }, [value, isPlaceholder, hasError]);
+
   return (
     <div className="h-fit border-t border-gray-200 pt-4">
       <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">
@@ -42,8 +67,10 @@ const AnswerDisplay = ({ result, placeholderValue = "0" }) => {
       <p
         className={
           isPlaceholder || hasError
-            ? "mt-2 select-none text-5xl font-semibold tabular-nums text-gray-200"
-            : "mt-2 text-5xl font-semibold tabular-nums text-gray-900"
+            ? "mt-2 select-none text-5xl font-semibold tabular-nums text-orange-400/25 transition-transform duration-200 ease-out"
+            : `mt-2 text-5xl font-semibold tabular-nums text-orange-400 transition-transform duration-200 ease-out ${
+                isBumping ? "scale-105" : "scale-100"
+              }`
         }
       >
         {value}
@@ -63,21 +90,61 @@ const CalculatorFrame = ({
   onClear,
   answerPlaceholder,
 }) => {
+  const [isClearAnimating, setIsClearAnimating] = useState(false);
+  const [clearNonce, setClearNonce] = useState(0);
+  const clearTimeoutRef = useRef(null);
+
+  const handleClear = () => {
+    setClearNonce((current) => current + 1);
+    setIsClearAnimating(true);
+    if (clearTimeoutRef.current) clearTimeout(clearTimeoutRef.current);
+    clearTimeoutRef.current = setTimeout(() => {
+      setIsClearAnimating(false);
+    }, 220);
+    onClear();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (clearTimeoutRef.current) clearTimeout(clearTimeoutRef.current);
+    };
+  }, []);
+
   return (
-    <Card className="flex h-full flex-col rounded-xl border border-gray-200 bg-white shadow-lg hover:shadow-xl transition-shadow duration-200 ease-out shadow-black/5">
-      <CardHeader className="flex flex-row justify-between items-center border-b border-gray-200 bg-gray-50/60 ">
+    <Card className="flex h-full flex-col rounded-xl group hover:rounded-3xl border border-gray-200 bg-white shadow-lg hover:shadow-xl transition-all duration-200 ease-out">
+      <CardHeader className="flex flex-row justify-between items-center border-b border-gray-200 bg-orange-400 rounded-t-xl group-hover:rounded-t-3xl transition-all duration-200 ease-out ">
         <div>
-          <CardTitle className=" text-lg">{title}</CardTitle>
-          <CardDescription className="text-xs">{description}</CardDescription>
+          <CardTitle className=" text-lg text-white">{title}</CardTitle>
+          <CardDescription className="text-xs text-white/65">
+            {description}
+          </CardDescription>
         </div>
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          className=" rounded-md px-2 text-gray-500 hover:text-gray-900"
-          onClick={onClear}
+          className={`rounded-full py-5 text-white/80 bg-orange-800/20 transition-all hover:bg-orange-800/30 duration-200 ease-out ${
+            isClearAnimating ? "scale-105" : "scale-100"
+          }`}
+          onClick={handleClear}
         >
-          Clear
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={`h-4 w-4  ${
+              isClearAnimating ? "animate-[spin_0.35s_ease-in-out_1]" : ""
+            }`}
+          >
+            <path
+              d="M5.5 1C5.22386 1 5 1.22386 5 1.5C5 1.77614 5.22386 2 5.5 2H9.5C9.77614 2 10 1.77614 10 1.5C10 1.22386 9.77614 1 9.5 1H5.5ZM3 3.5C3 3.22386 3.22386 3 3.5 3H5H10H11.5C11.7761 3 12 3.22386 12 3.5C12 3.77614 11.7761 4 11.5 4H11V12C11 12.5523 10.5523 13 10 13H5C4.44772 13 4 12.5523 4 12V4L3.5 4C3.22386 4 3 3.77614 3 3.5ZM5 4H10V12H5V4Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
         </Button>
       </CardHeader>
 
