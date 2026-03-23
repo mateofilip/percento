@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mf-percento.vercel.app/sitemap.xml

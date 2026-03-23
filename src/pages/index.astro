@@ -2,6 +2,8 @@
 import PercentageCalculator from '../components/PercentageCalculator.jsx';
 import StackInfo from '../components/StackInfo.jsx';
 import '../styles.css'
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <html lang="en">
@@ -11,17 +13,20 @@ import '../styles.css'
 		<link rel="icon" href="/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Percentage Calculator</title>
+		<title>Percento</title>
+		<link rel="canonical" href={canonicalUrl} />
 		<meta name="description" content="Fast percentage calculator: percent of a number, percentage change, percentage difference, and more." />
 		<meta name="robots" content="index,follow" />
 		<meta name="theme-color" content="#0f172a" />
 		<meta name="color-scheme" content="dark light" />
-		<meta property="og:title" content="Percentage Calculator" />
+		<meta property="og:title" content="Percento" />
 		<meta property="og:description" content="Fast percentage calculator: percent of a number, percentage change, percentage difference, and more." />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="Percentage Calculator" />
+		<meta name="twitter:title" content="Percento" />
 		<meta name="twitter:description" content="Fast percentage calculator: percent of a number, percentage change, percentage difference, and more." />
+		<meta name="twitter:url" content={canonicalUrl} />
 	</head>
 	<body class="h-dvh grid place-items-center p-4 bg-animation">
 		

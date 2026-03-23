@@ -1,13 +1,13 @@
 @font-face {
   font-family: OpenRunde;
-  src: url(../public/OpenRunde-Regular.woff2) format(woff2);
+  src: url("/OpenRunde-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: OpenRunde;
-  src: url(../public/OpenRunde-SemiBold.woff2) format(woff2);
+  src: url("/OpenRunde-Semibold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }

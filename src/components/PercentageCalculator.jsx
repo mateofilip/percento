@@ -18,9 +18,8 @@ const PercentageCalculator = () => {
           Quick percentage tools
         </div>
         <h1 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-white md:text-5xl">
-          Percentage{" "}
           <span className="bg-gradient-to-r from-orange-200 via-orange-400 to-amber-200 bg-clip-text text-transparent">
-            Calculator
+            Percento
           </span>
         </h1>
         <p className="mt-3 max-w-xl text-sm text-white/70 md:text-base">
