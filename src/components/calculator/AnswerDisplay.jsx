@@ -17,10 +17,10 @@ const AnswerDisplay = ({ result, placeholderValue = "0" }) => {
     digitCount > 18
       ? "text-2xl"
       : digitCount > 13
-      ? "text-3xl"
-      : digitCount > 9
-      ? "text-4xl"
-      : "text-5xl";
+        ? "text-3xl"
+        : digitCount > 9
+          ? "text-4xl"
+          : "text-5xl";
 
   const [isBumping, setIsBumping] = useState(false);
   const previousValueRef = useRef(value);

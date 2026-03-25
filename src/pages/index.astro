@@ -4,6 +4,7 @@ import StackInfo from '../components/StackInfo.jsx';
 import '../styles.css'
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const socialImageUrl = new URL("/site.png", Astro.site).toString();
 ---
 
 <html lang="en">
@@ -23,10 +24,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
 		<meta property="og:description" content="Fast percentage calculator: percent of a number, percentage change, percentage difference, and more." />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:image" content={socialImageUrl} />
+		<meta property="og:image:alt" content="Percento — quick percentage tools" />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="Percento" />
 		<meta name="twitter:description" content="Fast percentage calculator: percent of a number, percentage change, percentage difference, and more." />
 		<meta name="twitter:url" content={canonicalUrl} />
+		<meta name="twitter:image" content={socialImageUrl} />
+		<meta name="twitter:image:alt" content="Percento — quick percentage tools" />
 	</head>
 	<body class="h-dvh grid place-items-center p-4 bg-animation">
 		
